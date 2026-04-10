@@ -1,0 +1,58 @@
+package action
+
+import (
+	"log"
+
+	sdk "github.com/SkYNewZ/streamdeck-sdk"
+	"github.com/ftl/hl-go"
+)
+
+const SelectModeUUID = "com.thecodingflow.hamlibplugin.selectmode"
+
+func init() {
+	Factories[SelectModeUUID] = NewSelectMode
+}
+
+type SelectMode struct {
+	context string
+	client  RigClient
+	deck    Deck
+}
+
+func NewSelectMode(context string, client RigClient, deck Deck) Action {
+	return &SelectMode{
+		context: context,
+		client:  client,
+		deck:    deck,
+	}
+}
+
+func parseSettings(settings map[string]any) (hl.VFO, hl.Mode) {
+	vfo := settings["vfo"].(string)
+	mode := settings["mode"].(string)
+	return hl.VFO(vfo), hl.Mode(mode)
+}
+
+func (a *SelectMode) DidReceiveSettings(payload *sdk.ReceivedEventPayload) error {
+	a.UpdateVisual(payload)
+	return nil
+}
+
+func (a *SelectMode) UpdateVisual(payload *sdk.ReceivedEventPayload) error {
+	_, mode := parseSettings(payload.Settings)
+	a.deck.SetTitle(a.context, string(mode), sdk.HardwareAndSoftware)
+	return nil
+}
+
+func (a *SelectMode) KeyDown(payload *sdk.ReceivedEventPayload) error {
+	vfo, mode := parseSettings(payload.Settings)
+	if vfo == "" || mode == "" {
+		return nil
+	}
+
+	err := a.client.SetMode(vfo, mode, hl.UnchangedBandwidth)
+	if err != nil {
+		log.Printf("[ERROR] select mode: %v", err)
+	}
+	return nil
+}

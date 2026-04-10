@@ -1,0 +1,29 @@
+{
+  "Name": "Hamlib OpenAction Plugin",
+  "Author": "ftl",
+  "Version": "--VERSION--",
+  "Icon": "icons/hamlib",
+  "Category": "Hamlib",
+  "CategoryIcon": "icons/hamlib",
+  "PropertyInspectorPath": "pi/empty.html",
+  "HasSettingsInterface": false,
+  "Actions": [
+    {
+      "Name": "Select Mode",
+      "UUID": "com.thecodingflow.hamlibplugin.selectmode",
+      "Tooltip": "Select a certain mode",
+      "Icon": "icons/radio_light",
+      "DisableAutomaticStates": false,
+      "VisibleInActionsList": true,
+      "SupportedInMultiActions": true,
+      "PropertyInspectorPath": "pi/selectmode.html",
+      "Controllers": ["Keypad"],
+      "States": [{ "Title": "Mode" }]
+    }
+  ],
+  "OS": [{ "Platform": "linux" }],
+  "CodePaths": {
+    "x86_64-unknown-linux-gnu": "hamlibplugin-x86_64-unknown-linux-gnu"
+  },
+  "CodePathLin": "hamlibplugin-x86_64-unknown-linux-gnu"
+}

@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <script>
+            let update = () => {};
+            let modeSetting = "";
+            let vfoSetting = "";
+
+            function connectOpenActionSocket(
+                inPort,
+                inPropertyInspectorUUID,
+                inRegisterEvent,
+                inInfo,
+                inActionInfo,
+            ) {
+                const websocket = new WebSocket("ws://localhost:" + inPort);
+                inActionInfo = JSON.parse(inActionInfo);
+                websocket.onopen = () => {
+                    websocket.send(
+                        JSON.stringify({
+                            event: inRegisterEvent,
+                            uuid: inPropertyInspectorUUID,
+                        }),
+                    );
+                };
+
+                modeSetting = inActionInfo.payload.settings.mode ?? "";
+                vfoSetting = inActionInfo.payload.settings.vfo ?? "";
+
+                websocket.onmessage = (event) => {
+                    const data = JSON.parse(event.data);
+                    if (data.event == "didReceiveSettings") {
+                        modeSetting = data.payload.settings.mode ?? "";
+                        vfoSetting = data.payload.settings.vfo ?? "";
+                    }
+                    if (data.event == "sendToPropertyInspector") {
+                        // TODO: receive available modes and vfos from the plugin
+                    }
+                };
+
+                const modeElement = document.getElementById("mode");
+                modeElement.value = inActionInfo.payload.settings.mode ?? "";
+
+                const vfoElement = document.getElementById("vfo");
+                vfoElement.value = inActionInfo.payload.settings.vfo ?? "";
+
+                update = () => {
+                    websocket.send(
+                        JSON.stringify({
+                            event: "setSettings",
+                            context: inActionInfo.context,
+                            payload: {
+                                mode: modeElement.value || "",
+                                vfo: vfoElement.value || "",
+                            },
+                        }),
+                    );
+                };
+            }
+
+            const connectElgatoStreamDeckSocket = connectOpenActionSocket;
+        </script>
+
+        <style>
+            * {
+                font-family: system-ui, sans-serif;
+                font-size: 16px;
+                color: oklch(92.2% 0 0);
+            }
+            body {
+                margin: 16px;
+                background-color: oklch(26.9% 0 0);
+            }
+            label {
+                margin-right: 4px;
+            }
+            input {
+                margin: 4px;
+                padding: 4px;
+                background-color: oklch(37.1% 0 0);
+                border: 1px solid oklch(43.9% 0 0);
+                border-radius: 8px;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div>
+            <label for="mode">Mode:</label>
+            <!-- should be a combo box with all modes -->
+            <input id="mode" oninput="update()" type="text" />
+            <br />
+            <!-- should be a combo box with all modes -->
+            <label for="vfo">VFO:</label>
+            <input id="vfo" oninput="update()" type="text" />
+        </div>
+    </body>
+</html>
