@@ -28,8 +28,14 @@ func NewSelectMode(context string, client RigClient, deck Deck) Action {
 }
 
 func parseSettings(settings map[string]any) (hl.VFO, hl.Mode) {
-	vfo := settings["vfo"].(string)
-	mode := settings["mode"].(string)
+	vfo, ok := settings["vfo"].(string)
+	if !ok {
+		vfo = ""
+	}
+	mode, ok := settings["mode"].(string)
+	if !ok {
+		mode = ""
+	}
 	return hl.VFO(vfo), hl.Mode(mode)
 }
 
@@ -40,6 +46,9 @@ func (a *SelectMode) DidReceiveSettings(payload *sdk.ReceivedEventPayload) error
 
 func (a *SelectMode) UpdateVisual(payload *sdk.ReceivedEventPayload) error {
 	_, mode := parseSettings(payload.Settings)
+	if mode == "" {
+		mode = "Mode"
+	}
 	a.deck.SetTitle(a.context, string(mode), sdk.HardwareAndSoftware)
 	return nil
 }
