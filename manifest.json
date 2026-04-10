@@ -9,6 +9,18 @@
   "HasSettingsInterface": false,
   "Actions": [
     {
+      "Name": "Select VFO",
+      "UUID": "com.thecodingflow.hamlibplugin.selectvfo",
+      "Tooltip": "Select a certain VFO",
+      "Icon": "icons/radio_light",
+      "DisableAutomaticStates": false,
+      "VisibleInActionsList": true,
+      "SupportedInMultiActions": true,
+      "PropertyInspectorPath": "pi/selectvfo.html",
+      "Controllers": ["Keypad"],
+      "States": [{ "Title": "VFO" }]
+    },
+    {
       "Name": "Select Mode",
       "UUID": "com.thecodingflow.hamlibplugin.selectmode",
       "Tooltip": "Select a certain mode",
