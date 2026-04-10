@@ -19,6 +19,18 @@
       "PropertyInspectorPath": "pi/selectmode.html",
       "Controllers": ["Keypad"],
       "States": [{ "Title": "Mode" }]
+    },
+    {
+      "Name": "Frequency Dial",
+      "UUID": "com.thecodingflow.hamlibplugin.frequencydial",
+      "Tooltip": "Frequency encoder for a certain VFO",
+      "Icon": "icons/radio_light",
+      "DisableAutomaticStates": false,
+      "VisibleInActionsList": true,
+      "SupportedInMultiActions": true,
+      "PropertyInspectorPath": "pi/frequencydial.html",
+      "Controllers": ["Encoder"],
+      "States": [{ "Title": "VFO" }]
     }
   ],
   "OS": [{ "Platform": "linux" }],

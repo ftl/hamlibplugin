@@ -14,20 +14,20 @@ func init() {
 }
 
 type SelectMode struct {
-	context string
-	client  RigClient
-	deck    Deck
+	basicAction
 }
 
 func NewSelectMode(context string, client RigClient, deck Deck) Action {
 	return &SelectMode{
-		context: context,
-		client:  client,
-		deck:    deck,
+		basicAction: basicAction{
+			context: context,
+			client:  client,
+			deck:    deck,
+		},
 	}
 }
 
-func parseSettings(settings map[string]any) (hl.VFO, hl.Mode) {
+func (a *SelectMode) parseSettings(settings map[string]any) (hl.VFO, hl.Mode) {
 	vfo, ok := settings["vfo"].(string)
 	if !ok {
 		vfo = ""
@@ -45,7 +45,7 @@ func (a *SelectMode) DidReceiveSettings(payload *sdk.ReceivedEventPayload) error
 }
 
 func (a *SelectMode) UpdateVisual(payload *sdk.ReceivedEventPayload) error {
-	_, mode := parseSettings(payload.Settings)
+	_, mode := a.parseSettings(payload.Settings)
 	if mode == "" {
 		mode = "Mode"
 	}
@@ -54,7 +54,7 @@ func (a *SelectMode) UpdateVisual(payload *sdk.ReceivedEventPayload) error {
 }
 
 func (a *SelectMode) KeyDown(payload *sdk.ReceivedEventPayload) error {
-	vfo, mode := parseSettings(payload.Settings)
+	vfo, mode := a.parseSettings(payload.Settings)
 	if vfo == "" || mode == "" {
 		return nil
 	}

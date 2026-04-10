@@ -7,6 +7,12 @@ import (
 
 type Action any
 
+type basicAction struct {
+	context string
+	client  RigClient
+	deck    Deck
+}
+
 type Factory func(context string, client RigClient, deck Deck) Action
 
 var Factories = map[string]Factory{}
@@ -20,6 +26,8 @@ type RigClient interface {
 	SetMode(hl.VFO, hl.Mode, hl.Bandwidth) error
 	GetVFO() (hl.VFO, error)
 	SetVFO(hl.VFO) error
+	GetFrequency(hl.VFO) (hl.Frequency, error)
+	SetFrequency(hl.VFO, hl.Frequency) error
 }
 
 type Deck interface {

@@ -69,6 +69,7 @@ func (p *Plugin) Handle(event *sdk.ReceivedEvent) error {
 		}
 		inst = factory(event.Context, p.rigClient, p.deck)
 		p.instances[event.Context] = inst
+		log.Printf("NEW INSTANCE: %s = %T\n\n", event.Context, inst)
 	}
 	p.instancesLock.Unlock()
 
@@ -81,13 +82,17 @@ func (p *Plugin) Handle(event *sdk.ReceivedEvent) error {
 	case sdk.WillDisappear:
 		delete(p.instances, event.Context)
 		return nil
+	case sdk.DidReceiveSettings:
+		return handle(inst, func(handler SettingsHandler) error {
+			return handler.DidReceiveSettings(event.Payload)
+		})
 	case sdk.KeyDown:
 		return handle(inst, func(handler KeyDownHandler) error {
 			return handler.KeyDown(event.Payload)
 		})
-	case sdk.DidReceiveSettings:
-		return handle(inst, func(handler SettingsHandler) error {
-			return handler.DidReceiveSettings(event.Payload)
+	case sdk.DialRotate:
+		return handle(inst, func(handler DialRotateHandler) error {
+			return handler.DialRotate(event.Payload)
 		})
 	default:
 		return nil

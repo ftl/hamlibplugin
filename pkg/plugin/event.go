@@ -16,10 +16,14 @@ type VisualAppearalHandler interface {
 	UpdateVisual(*sdk.ReceivedEventPayload) error
 }
 
+type SettingsHandler interface {
+	DidReceiveSettings(*sdk.ReceivedEventPayload) error
+}
+
 type KeyDownHandler interface {
 	KeyDown(*sdk.ReceivedEventPayload) error
 }
 
-type SettingsHandler interface {
-	DidReceiveSettings(*sdk.ReceivedEventPayload) error
+type DialRotateHandler interface {
+	DialRotate(payload *sdk.ReceivedEventPayload) error
 }
