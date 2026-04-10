@@ -4,7 +4,8 @@
         <script>
             let update = () => {};
             let vfoSetting = "";
-            let tuningStepSetting = 0;
+            let levelSetting = "";
+            let stepSetting = 0;
 
             function connectOpenActionSocket(
                 inPort,
@@ -25,27 +26,29 @@
                 };
 
                 vfoSetting = inActionInfo.payload.settings.vfo ?? "";
-                tuningStepSetting =
-                    inActionInfo.payload.settings.tuningStep ?? 0;
+                levelSetting = inActionInfo.payload.settings.level ?? "";
+                stepSetting = inActionInfo.payload.settings.step ?? 0;
 
                 websocket.onmessage = (event) => {
                     const data = JSON.parse(event.data);
                     if (data.event == "didReceiveSettings") {
                         vfoSetting = data.payload.settings.vfo ?? "";
-                        tuningStepSetting =
-                            data.payload.settings.tuningStep ?? 0;
+                        levelSetting = data.payload.settings.level ?? "";
+                        stepSetting = data.payload.settings.step ?? 0;
                     }
                     if (data.event == "sendToPropertyInspector") {
-                        // TODO: receive available vfos from the plugin
+                        // TODO: receive available vfos and levels from the plugin
                     }
                 };
 
                 const vfoElement = document.getElementById("vfo");
                 vfoElement.value = inActionInfo.payload.settings.vfo ?? "";
 
-                const tuningStepElement = document.getElementById("tuningStep");
-                tuningStepElement.value =
-                    inActionInfo.payload.settings.tuningStep ?? 0;
+                const levelElement = document.getElementById("level");
+                levelElement.value = inActionInfo.payload.settings.level ?? "";
+
+                const stepElement = document.getElementById("step");
+                stepElement.value = inActionInfo.payload.settings.step ?? 0;
 
                 update = () => {
                     websocket.send(
@@ -54,7 +57,8 @@
                             context: inActionInfo.context,
                             payload: {
                                 vfo: vfoElement.value || "",
-                                tuningStep: tuningStepElement.value || 0,
+                                level: levelElement.value || "",
+                                step: stepElement.value || 0,
                             },
                         }),
                     );
@@ -93,8 +97,12 @@
             <!-- should be a combo box with all vfos -->
             <input id="vfo" oninput="update()" type="text" />
             <br />
-            <label for="tuningStep">Tuning Step [Hz]:</label>
-            <input id="tuningStep" oninput="update()" type="number" />
+            <label for="level">Level:</label>
+            <!-- should be a combo box with all levels -->
+            <input id="level" oninput="update()" type="text" />
+            <br />
+            <label for="step">Step:</label>
+            <input id="step" oninput="update()" type="number" />
         </div>
     </body>
 </html>

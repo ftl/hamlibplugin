@@ -31,6 +31,30 @@
       "PropertyInspectorPath": "pi/frequencydial.html",
       "Controllers": ["Encoder"],
       "States": [{ "Title": "VFO" }]
+    },
+    {
+      "Name": "Set Level",
+      "UUID": "com.thecodingflow.hamlibplugin.setlevel",
+      "Tooltip": "Set a certain level value for a certain VFO",
+      "Icon": "icons/radio_light",
+      "DisableAutomaticStates": false,
+      "VisibleInActionsList": true,
+      "SupportedInMultiActions": true,
+      "PropertyInspectorPath": "pi/setlevel.html",
+      "Controllers": ["Keypad"],
+      "States": [{ "Title": "Level" }]
+    },
+    {
+      "Name": "Level Encoder",
+      "UUID": "com.thecodingflow.hamlibplugin.levelencoder",
+      "Tooltip": "Encoder for a certain level and certain VFO",
+      "Icon": "icons/radio_light",
+      "DisableAutomaticStates": false,
+      "VisibleInActionsList": true,
+      "SupportedInMultiActions": true,
+      "PropertyInspectorPath": "pi/levelencoder.html",
+      "Controllers": ["Encoder"],
+      "States": [{ "Title": "Level" }]
     }
   ],
   "OS": [{ "Platform": "linux" }],

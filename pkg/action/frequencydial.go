@@ -6,7 +6,6 @@ import (
 	"strconv"
 	"sync"
 	"sync/atomic"
-	"time"
 
 	sdk "github.com/SkYNewZ/streamdeck-sdk"
 	"github.com/ftl/hl-go"
@@ -18,15 +17,9 @@ func init() {
 	Factories[FrequencyDialUUID] = NewFrequencyDial
 }
 
-const (
-	frequencyDialRetentionPeriod = 100 * time.Millisecond
-)
-
 type FrequencyDial struct {
 	basicAction
-
-	clientLock  *sync.Mutex
-	queuedTicks int32
+	encoderAction
 }
 
 func NewFrequencyDial(context string, client RigClient, deck Deck) Action {
@@ -36,7 +29,9 @@ func NewFrequencyDial(context string, client RigClient, deck Deck) Action {
 			client:  client,
 			deck:    deck,
 		},
-		clientLock: new(sync.Mutex),
+		encoderAction: encoderAction{
+			clientLock: new(sync.Mutex),
+		},
 	}
 }
 

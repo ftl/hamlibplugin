@@ -1,6 +1,8 @@
 package action
 
 import (
+	"sync"
+
 	sdk "github.com/SkYNewZ/streamdeck-sdk"
 	"github.com/ftl/hl-go"
 )
@@ -13,6 +15,11 @@ type basicAction struct {
 	deck    Deck
 }
 
+type encoderAction struct {
+	clientLock  *sync.Mutex
+	queuedTicks int32
+}
+
 type Factory func(context string, client RigClient, deck Deck) Action
 
 var Factories = map[string]Factory{}
@@ -21,6 +28,7 @@ type RigClient interface {
 	GetModes() (map[hl.Mode]hl.ModeBandwidths, error)
 	GetModeBandwidths(hl.Mode) (hl.ModeBandwidths, error)
 	GetVFOList() ([]hl.VFO, error)
+	GetAvailableLevels(hl.VFO) ([]hl.Level, error)
 
 	GetMode(hl.VFO) (hl.Mode, hl.Bandwidth, error)
 	SetMode(hl.VFO, hl.Mode, hl.Bandwidth) error
@@ -28,6 +36,8 @@ type RigClient interface {
 	SetVFO(hl.VFO) error
 	GetFrequency(hl.VFO) (hl.Frequency, error)
 	SetFrequency(hl.VFO, hl.Frequency) error
+	GetLevel(hl.VFO, hl.Level) (float64, error)
+	SetLevel(hl.VFO, hl.Level, float64) error
 }
 
 type Deck interface {
