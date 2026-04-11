@@ -9,6 +9,8 @@ jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     outputs:
       version_number: ${{ steps.version_number.outputs.version_number }}
     steps:
@@ -44,6 +46,6 @@ jobs:
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           tag: ${{ github.ref }}
-          file: com.thecodingflow.hamlibplugin.zip
+          file: ./com.thecodingflow.hamlibplugin.zip
           asset_name: com.thecodingflow.hamlibplugin.zip
           overwrite: true
