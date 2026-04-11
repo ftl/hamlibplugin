@@ -81,6 +81,18 @@
       "States": [{ "Title": "Func" }]
     },
     {
+      "Name": "Toggle Function",
+      "UUID": "com.thecodingflow.hamlibplugin.togglefunc",
+      "Tooltip": "Toggle a rig function on/off for a certain VFO",
+      "Icon": "icons/radio_light",
+      "DisableAutomaticStates": false,
+      "VisibleInActionsList": true,
+      "SupportedInMultiActions": true,
+      "PropertyInspectorPath": "pi/togglefunc.html",
+      "Controllers": ["Keypad"],
+      "States": [{ "Title": "Func" }]
+    },
+    {
       "Name": "Set Parameter",
       "UUID": "com.thecodingflow.hamlibplugin.setparm",
       "Tooltip": "Set a rig-wide parameter value",

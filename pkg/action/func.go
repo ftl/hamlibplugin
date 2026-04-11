@@ -1,6 +1,7 @@
 package action
 
 import (
+	"fmt"
 	"log"
 	"strconv"
 
@@ -9,11 +10,13 @@ import (
 )
 
 const (
-	SetFuncUUID = "com.thecodingflow.hamlibplugin.setfunc"
+	SetFuncUUID    = "com.thecodingflow.hamlibplugin.setfunc"
+	ToggleFuncUUID = "com.thecodingflow.hamlibplugin.togglefunc"
 )
 
 func init() {
 	Factories[SetFuncUUID] = NewSetFunc
+	Factories[ToggleFuncUUID] = NewToggleFunc
 }
 
 type SetFunc struct {
@@ -74,5 +77,72 @@ func (a *SetFunc) KeyDown(payload *sdk.ReceivedEventPayload) error {
 	if err != nil {
 		log.Printf("[ERROR] set func %s: %v", function, err)
 	}
+	return nil
+}
+
+type ToggleFunc struct {
+	basicAction
+}
+
+func NewToggleFunc(context string, client RigClient, deck Deck) Action {
+	return &ToggleFunc{
+		basicAction: basicAction{
+			context: context,
+			client:  client,
+			deck:    deck,
+		},
+	}
+}
+
+func (a *ToggleFunc) parseSettings(settings map[string]any) (hl.VFO, hl.Function) {
+	vfo, ok := settings["vfo"].(string)
+	if !ok {
+		vfo = ""
+	}
+	function, ok := settings["function"].(string)
+	if !ok {
+		function = ""
+	}
+	return hl.VFO(vfo), hl.Function(function)
+}
+
+func (a *ToggleFunc) DidReceiveSettings(payload *sdk.ReceivedEventPayload) error {
+	a.UpdateVisual(payload)
+	return nil
+}
+
+func (a *ToggleFunc) UpdateVisual(payload *sdk.ReceivedEventPayload) error {
+	_, function := a.parseSettings(payload.Settings)
+	if function == "" {
+		function = "Func"
+	}
+	a.deck.SetTitle(a.context, string(function), sdk.HardwareAndSoftware)
+	return nil
+}
+
+func (a *ToggleFunc) KeyDown(payload *sdk.ReceivedEventPayload) error {
+	vfo, function := a.parseSettings(payload.Settings)
+	if vfo == "" || function == "" {
+		return nil
+	}
+
+	err := a.toggleFunc(vfo, function)
+	if err != nil {
+		log.Printf("[ERROR] toggle func %s: %v", function, err)
+	}
+	return nil
+}
+
+func (a *ToggleFunc) toggleFunc(vfo hl.VFO, function hl.Function) error {
+	current, err := a.client.GetFunc(vfo, function)
+	if err != nil {
+		return fmt.Errorf("cannot get current func %s status: %w", function, err)
+	}
+
+	err = a.client.SetFunc(vfo, function, !current)
+	if err != nil {
+		return fmt.Errorf("cannot set func %s: %w", function, err)
+	}
+
 	return nil
 }
