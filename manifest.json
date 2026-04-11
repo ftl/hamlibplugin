@@ -187,6 +187,30 @@
       "PropertyInspectorPath": "pi/antenna.html",
       "Controllers": ["Keypad"],
       "States": [{ "Title": "Ant" }]
+    },
+    {
+      "Name": "Send Morse",
+      "UUID": "com.thecodingflow.hamlibplugin.sendmorse",
+      "Tooltip": "Send a Morse code message",
+      "Icon": "icons/radio_light",
+      "DisableAutomaticStates": false,
+      "VisibleInActionsList": true,
+      "SupportedInMultiActions": true,
+      "PropertyInspectorPath": "pi/sendmorse.html",
+      "Controllers": ["Keypad"],
+      "States": [{ "Title": "CW" }]
+    },
+    {
+      "Name": "Stop Morse",
+      "UUID": "com.thecodingflow.hamlibplugin.stopmorse",
+      "Tooltip": "Stop the current Morse code transmission",
+      "Icon": "icons/radio_light",
+      "DisableAutomaticStates": false,
+      "VisibleInActionsList": true,
+      "SupportedInMultiActions": true,
+      "PropertyInspectorPath": "pi/empty.html",
+      "Controllers": ["Keypad"],
+      "States": [{ "Title": "Stop CW" }]
     }
   ],
   "OS": [{ "Platform": "linux" }],

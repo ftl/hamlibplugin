@@ -50,6 +50,8 @@ type RigClient interface {
 	GetPowerStatus() (hl.PowerStatus, error)
 	SetPowerStatus(hl.PowerStatus) error
 	SetAntenna(hl.VFO, int, int) error
+	SendMorse(string) error
+	StopMorse() error
 }
 
 type Deck interface {
