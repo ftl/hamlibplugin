@@ -67,6 +67,30 @@
       "PropertyInspectorPath": "pi/levelencoder.html",
       "Controllers": ["Encoder"],
       "States": [{ "Title": "Level" }]
+    },
+    {
+      "Name": "Set Function",
+      "UUID": "com.thecodingflow.hamlibplugin.setfunc",
+      "Tooltip": "Enable or disable a rig function for a certain VFO",
+      "Icon": "icons/radio_light",
+      "DisableAutomaticStates": false,
+      "VisibleInActionsList": true,
+      "SupportedInMultiActions": true,
+      "PropertyInspectorPath": "pi/setfunc.html",
+      "Controllers": ["Keypad"],
+      "States": [{ "Title": "Func" }]
+    },
+    {
+      "Name": "Set Parameter",
+      "UUID": "com.thecodingflow.hamlibplugin.setparm",
+      "Tooltip": "Set a rig-wide parameter value",
+      "Icon": "icons/radio_light",
+      "DisableAutomaticStates": false,
+      "VisibleInActionsList": true,
+      "SupportedInMultiActions": true,
+      "PropertyInspectorPath": "pi/setparm.html",
+      "Controllers": ["Keypad"],
+      "States": [{ "Title": "Parm" }]
     }
   ],
   "OS": [{ "Platform": "linux" }],

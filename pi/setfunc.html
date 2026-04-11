@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <script>
+            let update = () => {};
+            let vfoSetting = "";
+            let functionSetting = "";
+            let statusSetting = "false";
+
+            function connectOpenActionSocket(
+                inPort,
+                inPropertyInspectorUUID,
+                inRegisterEvent,
+                inInfo,
+                inActionInfo,
+            ) {
+                const websocket = new WebSocket("ws://localhost:" + inPort);
+                inActionInfo = JSON.parse(inActionInfo);
+                websocket.onopen = () => {
+                    websocket.send(
+                        JSON.stringify({
+                            event: inRegisterEvent,
+                            uuid: inPropertyInspectorUUID,
+                        }),
+                    );
+                };
+
+                vfoSetting = inActionInfo.payload.settings.vfo ?? "";
+                functionSetting = inActionInfo.payload.settings.function ?? "";
+                statusSetting = inActionInfo.payload.settings.status ?? "false";
+
+                websocket.onmessage = (event) => {
+                    const data = JSON.parse(event.data);
+                    if (data.event == "didReceiveSettings") {
+                        vfoSetting = data.payload.settings.vfo ?? "";
+                        functionSetting = data.payload.settings.function ?? "";
+                        statusSetting = data.payload.settings.status ?? "false";
+                    }
+                    if (data.event == "sendToPropertyInspector") {
+                        // TODO: receive available vfos and functions from the plugin
+                    }
+                };
+
+                const vfoElement = document.getElementById("vfo");
+                vfoElement.value = inActionInfo.payload.settings.vfo ?? "";
+
+                const functionElement = document.getElementById("function");
+                functionElement.value = inActionInfo.payload.settings.function ?? "";
+
+                const statusElement = document.getElementById("status");
+                statusElement.checked = inActionInfo.payload.settings.status === "true";
+
+                update = () => {
+                    websocket.send(
+                        JSON.stringify({
+                            event: "setSettings",
+                            context: inActionInfo.context,
+                            payload: {
+                                vfo: vfoElement.value || "",
+                                function: functionElement.value || "",
+                                status: statusElement.checked ? "true" : "false",
+                            },
+                        }),
+                    );
+                };
+            }
+
+            const connectElgatoStreamDeckSocket = connectOpenActionSocket;
+        </script>
+
+        <style>
+            * {
+                font-family: system-ui, sans-serif;
+                font-size: 16px;
+                color: oklch(92.2% 0 0);
+            }
+            body {
+                margin: 16px;
+                background-color: oklch(26.9% 0 0);
+            }
+            label {
+                margin-right: 4px;
+            }
+            input {
+                margin: 4px;
+                padding: 4px;
+                background-color: oklch(37.1% 0 0);
+                border: 1px solid oklch(43.9% 0 0);
+                border-radius: 8px;
+            }
+            input[type="checkbox"] {
+                width: 18px;
+                height: 18px;
+                vertical-align: middle;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div>
+            <label for="vfo">VFO:</label>
+            <!-- should be a combo box with all VFOs -->
+            <input id="vfo" oninput="update()" type="text" />
+            <br />
+            <label for="function">Function:</label>
+            <!-- should be a combo box with all functions -->
+            <input id="function" oninput="update()" type="text" />
+            <br />
+            <label for="status">On:</label>
+            <input id="status" onchange="update()" type="checkbox" />
+        </div>
+    </body>
+</html>

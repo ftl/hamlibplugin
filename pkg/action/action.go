@@ -38,6 +38,10 @@ type RigClient interface {
 	SetFrequency(hl.VFO, hl.Frequency) error
 	GetLevel(hl.VFO, hl.Level) (float64, error)
 	SetLevel(hl.VFO, hl.Level, float64) error
+	GetFunc(hl.VFO, hl.Function) (bool, error)
+	SetFunc(hl.VFO, hl.Function, bool) error
+	GetParm(hl.Parameter) (string, error)
+	SetParm(hl.Parameter, string) error
 }
 
 type Deck interface {
