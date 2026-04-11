@@ -81,6 +81,18 @@
       "States": [{ "Title": "VFO Op" }]
     },
     {
+      "Name": "VFO Operation Encoder",
+      "UUID": "com.thecodingflow.hamlibplugin.vfoopencoder",
+      "Tooltip": "Encoder for VFO operations with clockwise, counter-clockwise, and press actions",
+      "Icon": "icons/radio_light",
+      "DisableAutomaticStates": false,
+      "VisibleInActionsList": true,
+      "SupportedInMultiActions": true,
+      "PropertyInspectorPath": "pi/vfoopencoder.html",
+      "Controllers": ["Encoder"],
+      "States": [{ "Title": "VFO Op" }]
+    },
+    {
       "Name": "Set Function",
       "UUID": "com.thecodingflow.hamlibplugin.setfunc",
       "Tooltip": "Enable or disable a rig function for a certain VFO",

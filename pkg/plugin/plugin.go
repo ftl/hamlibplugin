@@ -94,6 +94,10 @@ func (p *Plugin) Handle(event *sdk.ReceivedEvent) error {
 		return handle(inst, func(handler DialRotateHandler) error {
 			return handler.DialRotate(event.Payload)
 		})
+	case sdk.DialDown:
+		return handle(inst, func(handler DialDownHandler) error {
+			return handler.DialDown(event.Payload)
+		})
 	default:
 		return nil
 	}

@@ -27,3 +27,7 @@ type KeyDownHandler interface {
 type DialRotateHandler interface {
 	DialRotate(payload *sdk.ReceivedEventPayload) error
 }
+
+type DialDownHandler interface {
+	DialDown(payload *sdk.ReceivedEventPayload) error
+}
