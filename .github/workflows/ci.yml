@@ -12,17 +12,17 @@ on:
 jobs:
   build:
     name: Build
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     outputs:
       version_number: ${{ steps.version_number.outputs.version_number }}
     steps:
       - name: Check out code into the Go module directory
-        uses: actions/checkout@v3
+        uses: actions/checkout@v6
         with:
           fetch-depth: 0
 
       - name: Set up Go 1.26
-        uses: actions/setup-go@v4
+        uses: actions/setup-go@v6
         with:
           go-version: "1.26.1"
         id: go
@@ -38,7 +38,7 @@ jobs:
         run: make prepare build archive
 
       - name: "Upload binary archive"
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: hamlibplugin-archive
           path: ./com.thecodingflow.hamlibplugin.zip
