@@ -2,7 +2,7 @@
   "Name": "Hamlib OpenAction Plugin",
   "Author": "ftl",
   "Version": "--VERSION--",
-  "Icon": "icons/hamlib",
+  "Icon": "icons/category",
   "Category": "Hamlib",
   "CategoryIcon": "icons/category",
   "PropertyInspectorPath": "pi/empty.html",

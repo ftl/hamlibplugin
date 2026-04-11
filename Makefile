@@ -5,6 +5,10 @@ VERSION_NUMBER ?= $(shell git describe --tags 2>/dev/null || echo "v0.0.0-dev" |
 BUILD_DIR = build
 PLUGIN_DIR = ${BUILD_DIR}/${PLUGIN_ID}.sdPlugin
 DEST_DIR ?= ~/.config/opendeck/plugins
+ARCHIVE_DIR:=$(shell pwd)
+
+version_number:
+	@echo ${VERSION_NUMBER}
 
 .PHONY: clean
 clean:
@@ -33,3 +37,7 @@ install: uninstall
 .PHONY: uninstall
 uninstall:
 	rm -rf ${DEST_DIR}/${PLUGIN_ID}.sdPlugin
+
+.PHONY: archive
+archive: prepare build
+	(cd ${BUILD_DIR} && zip -r ${ARCHIVE_DIR}/${PLUGIN_ID}.zip ${PLUGIN_ID}.sdPlugin/)
