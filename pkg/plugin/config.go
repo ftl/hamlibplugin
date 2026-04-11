@@ -1,6 +1,8 @@
 package plugin
 
-import "fmt"
+import (
+	"fmt"
+)
 
 type GlobalSettings struct {
 	Radios []RadioSettings `json:"radios"`
@@ -13,6 +15,9 @@ type RadioSettings struct {
 
 func parseGlobalSettings(settings map[string]any) (GlobalSettings, error) {
 	result := GlobalSettings{}
+	if len(settings) == 0 {
+		return result, nil
+	}
 
 	radios, ok := settings["radios"].([]any)
 	if !ok {

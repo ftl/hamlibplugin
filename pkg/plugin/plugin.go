@@ -35,7 +35,6 @@ func (p *Plugin) Start() {
 	// p.deck.GetGlobalSettings blocks until p.deck.Start is called, which can only happen after p.Start was called -> we use a goroutine
 	go func() {
 		p.deck.GetGlobalSettings(p.uuid)
-		log.Printf("global settings triggered\n")
 	}()
 }
 
