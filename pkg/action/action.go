@@ -49,6 +49,7 @@ type RigClient interface {
 	SetXIT(hl.VFO, hl.Frequency) error
 	GetPowerStatus() (hl.PowerStatus, error)
 	SetPowerStatus(hl.PowerStatus) error
+	SetAntenna(hl.VFO, int, int) error
 }
 
 type Deck interface {

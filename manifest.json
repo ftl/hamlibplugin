@@ -175,6 +175,18 @@
       "PropertyInspectorPath": "pi/xit.html",
       "Controllers": ["Encoder", "Keypad"],
       "States": [{ "Title": "XIT" }]
+    },
+    {
+      "Name": "Set Antenna",
+      "UUID": "com.thecodingflow.hamlibplugin.setantenna",
+      "Tooltip": "Select an antenna for a certain VFO",
+      "Icon": "icons/radio_light",
+      "DisableAutomaticStates": false,
+      "VisibleInActionsList": true,
+      "SupportedInMultiActions": true,
+      "PropertyInspectorPath": "pi/antenna.html",
+      "Controllers": ["Keypad"],
+      "States": [{ "Title": "Ant" }]
     }
   ],
   "OS": [{ "Platform": "linux" }],
