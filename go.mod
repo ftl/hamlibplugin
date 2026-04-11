@@ -4,7 +4,7 @@ go 1.26
 
 require (
 	github.com/SkYNewZ/streamdeck-sdk v0.0.0-20260123110451-19c4c7678174
-	github.com/ftl/hl-go v1.0.2
+	github.com/ftl/hl-go v1.0.3
 	github.com/stretchr/testify v1.11.1
 	github.com/vincent-petithory/dataurl v1.0.0
 )
