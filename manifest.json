@@ -9,30 +9,6 @@
   "HasSettingsInterface": false,
   "Actions": [
     {
-      "Name": "Select VFO",
-      "UUID": "com.thecodingflow.hamlibplugin.selectvfo",
-      "Tooltip": "Select a certain VFO",
-      "Icon": "icons/radio_light",
-      "DisableAutomaticStates": false,
-      "VisibleInActionsList": true,
-      "SupportedInMultiActions": true,
-      "PropertyInspectorPath": "pi/selectvfo.html",
-      "Controllers": ["Keypad"],
-      "States": [{ "Title": "VFO" }]
-    },
-    {
-      "Name": "Select Mode",
-      "UUID": "com.thecodingflow.hamlibplugin.selectmode",
-      "Tooltip": "Select a certain mode",
-      "Icon": "icons/radio_light",
-      "DisableAutomaticStates": false,
-      "VisibleInActionsList": true,
-      "SupportedInMultiActions": true,
-      "PropertyInspectorPath": "pi/selectmode.html",
-      "Controllers": ["Keypad"],
-      "States": [{ "Title": "Mode" }]
-    },
-    {
       "Name": "Frequency Dial",
       "UUID": "com.thecodingflow.hamlibplugin.frequencydial",
       "Tooltip": "Frequency encoder for a certain VFO",
@@ -45,18 +21,6 @@
       "States": [{ "Title": "VFO" }]
     },
     {
-      "Name": "Set Level",
-      "UUID": "com.thecodingflow.hamlibplugin.setlevel",
-      "Tooltip": "Set a certain level value for a certain VFO",
-      "Icon": "icons/radio_light",
-      "DisableAutomaticStates": false,
-      "VisibleInActionsList": true,
-      "SupportedInMultiActions": true,
-      "PropertyInspectorPath": "pi/setlevel.html",
-      "Controllers": ["Keypad"],
-      "States": [{ "Title": "Level" }]
-    },
-    {
       "Name": "Level Encoder",
       "UUID": "com.thecodingflow.hamlibplugin.levelencoder",
       "Tooltip": "Encoder for a certain level and certain VFO",
@@ -67,66 +31,6 @@
       "PropertyInspectorPath": "pi/levelencoder.html",
       "Controllers": ["Encoder"],
       "States": [{ "Title": "Level" }]
-    },
-    {
-      "Name": "VFO Operation",
-      "UUID": "com.thecodingflow.hamlibplugin.vfoop",
-      "Tooltip": "Perform a VFO operation",
-      "Icon": "icons/radio_light",
-      "DisableAutomaticStates": false,
-      "VisibleInActionsList": true,
-      "SupportedInMultiActions": true,
-      "PropertyInspectorPath": "pi/vfoop.html",
-      "Controllers": ["Keypad"],
-      "States": [{ "Title": "VFO Op" }]
-    },
-    {
-      "Name": "VFO Operation Encoder",
-      "UUID": "com.thecodingflow.hamlibplugin.vfoopencoder",
-      "Tooltip": "Encoder for VFO operations with clockwise, counter-clockwise, and press actions",
-      "Icon": "icons/radio_light",
-      "DisableAutomaticStates": false,
-      "VisibleInActionsList": true,
-      "SupportedInMultiActions": true,
-      "PropertyInspectorPath": "pi/vfoopencoder.html",
-      "Controllers": ["Encoder"],
-      "States": [{ "Title": "VFO Op" }]
-    },
-    {
-      "Name": "Set Function",
-      "UUID": "com.thecodingflow.hamlibplugin.setfunc",
-      "Tooltip": "Enable or disable a rig function for a certain VFO",
-      "Icon": "icons/radio_light",
-      "DisableAutomaticStates": false,
-      "VisibleInActionsList": true,
-      "SupportedInMultiActions": true,
-      "PropertyInspectorPath": "pi/setfunc.html",
-      "Controllers": ["Keypad"],
-      "States": [{ "Title": "Func" }]
-    },
-    {
-      "Name": "Toggle Function",
-      "UUID": "com.thecodingflow.hamlibplugin.togglefunc",
-      "Tooltip": "Toggle a rig function on/off for a certain VFO",
-      "Icon": "icons/radio_light",
-      "DisableAutomaticStates": false,
-      "VisibleInActionsList": true,
-      "SupportedInMultiActions": true,
-      "PropertyInspectorPath": "pi/togglefunc.html",
-      "Controllers": ["Keypad"],
-      "States": [{ "Title": "Func" }]
-    },
-    {
-      "Name": "Set Parameter",
-      "UUID": "com.thecodingflow.hamlibplugin.setparm",
-      "Tooltip": "Set a rig-wide parameter value",
-      "Icon": "icons/radio_light",
-      "DisableAutomaticStates": false,
-      "VisibleInActionsList": true,
-      "SupportedInMultiActions": true,
-      "PropertyInspectorPath": "pi/setparm.html",
-      "Controllers": ["Keypad"],
-      "States": [{ "Title": "Parm" }]
     },
     {
       "Name": "On/Off",
@@ -165,28 +69,28 @@
       "States": [{ "Title": "RIT" }]
     },
     {
-      "Name": "XIT",
-      "UUID": "com.thecodingflow.hamlibplugin.xit",
-      "Tooltip": "Adjust XIT offset and toggle XIT on/off",
+      "Name": "Select Mode",
+      "UUID": "com.thecodingflow.hamlibplugin.selectmode",
+      "Tooltip": "Select a certain mode",
       "Icon": "icons/radio_light",
       "DisableAutomaticStates": false,
       "VisibleInActionsList": true,
       "SupportedInMultiActions": true,
-      "PropertyInspectorPath": "pi/xit.html",
-      "Controllers": ["Encoder", "Keypad"],
-      "States": [{ "Title": "XIT" }]
+      "PropertyInspectorPath": "pi/selectmode.html",
+      "Controllers": ["Keypad"],
+      "States": [{ "Title": "Mode" }]
     },
     {
-      "Name": "Set Antenna",
-      "UUID": "com.thecodingflow.hamlibplugin.setantenna",
-      "Tooltip": "Select an antenna for a certain VFO",
+      "Name": "Select VFO",
+      "UUID": "com.thecodingflow.hamlibplugin.selectvfo",
+      "Tooltip": "Select a certain VFO",
       "Icon": "icons/radio_light",
       "DisableAutomaticStates": false,
       "VisibleInActionsList": true,
       "SupportedInMultiActions": true,
-      "PropertyInspectorPath": "pi/antenna.html",
+      "PropertyInspectorPath": "pi/selectvfo.html",
       "Controllers": ["Keypad"],
-      "States": [{ "Title": "Ant" }]
+      "States": [{ "Title": "VFO" }]
     },
     {
       "Name": "Send Morse",
@@ -201,28 +105,16 @@
       "States": [{ "Title": "CW" }]
     },
     {
-      "Name": "Stop Morse",
-      "UUID": "com.thecodingflow.hamlibplugin.stopmorse",
-      "Tooltip": "Stop the current Morse code transmission",
+      "Name": "Set Antenna",
+      "UUID": "com.thecodingflow.hamlibplugin.setantenna",
+      "Tooltip": "Select an antenna for a certain VFO",
       "Icon": "icons/radio_light",
       "DisableAutomaticStates": false,
       "VisibleInActionsList": true,
       "SupportedInMultiActions": true,
-      "PropertyInspectorPath": "pi/empty.html",
+      "PropertyInspectorPath": "pi/antenna.html",
       "Controllers": ["Keypad"],
-      "States": [{ "Title": "Stop CW" }]
-    },
-    {
-      "Name": "Set Split VFO",
-      "UUID": "com.thecodingflow.hamlibplugin.setsplitvfo",
-      "Tooltip": "Enable or disable split operation and set the TX VFO",
-      "Icon": "icons/radio_light",
-      "DisableAutomaticStates": false,
-      "VisibleInActionsList": true,
-      "SupportedInMultiActions": true,
-      "PropertyInspectorPath": "pi/setsplitvfo.html",
-      "Controllers": ["Keypad"],
-      "States": [{ "Title": "Split" }]
+      "States": [{ "Title": "Ant" }]
     },
     {
       "Name": "Set Frequency",
@@ -247,6 +139,114 @@
       "PropertyInspectorPath": "pi/setfrequencyrelative.html",
       "Controllers": ["Keypad"],
       "States": [{ "Title": "Freq Rel" }]
+    },
+    {
+      "Name": "Set Function",
+      "UUID": "com.thecodingflow.hamlibplugin.setfunc",
+      "Tooltip": "Enable or disable a rig function for a certain VFO",
+      "Icon": "icons/radio_light",
+      "DisableAutomaticStates": false,
+      "VisibleInActionsList": true,
+      "SupportedInMultiActions": true,
+      "PropertyInspectorPath": "pi/setfunc.html",
+      "Controllers": ["Keypad"],
+      "States": [{ "Title": "Func" }]
+    },
+    {
+      "Name": "Set Level",
+      "UUID": "com.thecodingflow.hamlibplugin.setlevel",
+      "Tooltip": "Set a certain level value for a certain VFO",
+      "Icon": "icons/radio_light",
+      "DisableAutomaticStates": false,
+      "VisibleInActionsList": true,
+      "SupportedInMultiActions": true,
+      "PropertyInspectorPath": "pi/setlevel.html",
+      "Controllers": ["Keypad"],
+      "States": [{ "Title": "Level" }]
+    },
+    {
+      "Name": "Set Parameter",
+      "UUID": "com.thecodingflow.hamlibplugin.setparm",
+      "Tooltip": "Set a rig-wide parameter value",
+      "Icon": "icons/radio_light",
+      "DisableAutomaticStates": false,
+      "VisibleInActionsList": true,
+      "SupportedInMultiActions": true,
+      "PropertyInspectorPath": "pi/setparm.html",
+      "Controllers": ["Keypad"],
+      "States": [{ "Title": "Parm" }]
+    },
+    {
+      "Name": "Set Split VFO",
+      "UUID": "com.thecodingflow.hamlibplugin.setsplitvfo",
+      "Tooltip": "Enable or disable split operation and set the TX VFO",
+      "Icon": "icons/radio_light",
+      "DisableAutomaticStates": false,
+      "VisibleInActionsList": true,
+      "SupportedInMultiActions": true,
+      "PropertyInspectorPath": "pi/setsplitvfo.html",
+      "Controllers": ["Keypad"],
+      "States": [{ "Title": "Split" }]
+    },
+    {
+      "Name": "Stop Morse",
+      "UUID": "com.thecodingflow.hamlibplugin.stopmorse",
+      "Tooltip": "Stop the current Morse code transmission",
+      "Icon": "icons/radio_light",
+      "DisableAutomaticStates": false,
+      "VisibleInActionsList": true,
+      "SupportedInMultiActions": true,
+      "PropertyInspectorPath": "pi/empty.html",
+      "Controllers": ["Keypad"],
+      "States": [{ "Title": "Stop CW" }]
+    },
+    {
+      "Name": "Toggle Function",
+      "UUID": "com.thecodingflow.hamlibplugin.togglefunc",
+      "Tooltip": "Toggle a rig function on/off for a certain VFO",
+      "Icon": "icons/radio_light",
+      "DisableAutomaticStates": false,
+      "VisibleInActionsList": true,
+      "SupportedInMultiActions": true,
+      "PropertyInspectorPath": "pi/togglefunc.html",
+      "Controllers": ["Keypad"],
+      "States": [{ "Title": "Func" }]
+    },
+    {
+      "Name": "VFO Operation",
+      "UUID": "com.thecodingflow.hamlibplugin.vfoop",
+      "Tooltip": "Perform a VFO operation",
+      "Icon": "icons/radio_light",
+      "DisableAutomaticStates": false,
+      "VisibleInActionsList": true,
+      "SupportedInMultiActions": true,
+      "PropertyInspectorPath": "pi/vfoop.html",
+      "Controllers": ["Keypad"],
+      "States": [{ "Title": "VFO Op" }]
+    },
+    {
+      "Name": "VFO Operation Encoder",
+      "UUID": "com.thecodingflow.hamlibplugin.vfoopencoder",
+      "Tooltip": "Encoder for VFO operations with clockwise, counter-clockwise, and press actions",
+      "Icon": "icons/radio_light",
+      "DisableAutomaticStates": false,
+      "VisibleInActionsList": true,
+      "SupportedInMultiActions": true,
+      "PropertyInspectorPath": "pi/vfoopencoder.html",
+      "Controllers": ["Encoder"],
+      "States": [{ "Title": "VFO Op" }]
+    },
+    {
+      "Name": "XIT",
+      "UUID": "com.thecodingflow.hamlibplugin.xit",
+      "Tooltip": "Adjust XIT offset and toggle XIT on/off",
+      "Icon": "icons/radio_light",
+      "DisableAutomaticStates": false,
+      "VisibleInActionsList": true,
+      "SupportedInMultiActions": true,
+      "PropertyInspectorPath": "pi/xit.html",
+      "Controllers": ["Encoder", "Keypad"],
+      "States": [{ "Title": "XIT" }]
     }
   ],
   "OS": [{ "Platform": "linux" }],
