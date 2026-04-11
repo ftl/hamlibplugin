@@ -127,6 +127,30 @@
       "PropertyInspectorPath": "pi/setparm.html",
       "Controllers": ["Keypad"],
       "States": [{ "Title": "Parm" }]
+    },
+    {
+      "Name": "RIT",
+      "UUID": "com.thecodingflow.hamlibplugin.rit",
+      "Tooltip": "Adjust RIT offset and toggle RIT on/off",
+      "Icon": "icons/radio_light",
+      "DisableAutomaticStates": false,
+      "VisibleInActionsList": true,
+      "SupportedInMultiActions": true,
+      "PropertyInspectorPath": "pi/rit.html",
+      "Controllers": ["Encoder", "Keypad"],
+      "States": [{ "Title": "RIT" }]
+    },
+    {
+      "Name": "XIT",
+      "UUID": "com.thecodingflow.hamlibplugin.xit",
+      "Tooltip": "Adjust XIT offset and toggle XIT on/off",
+      "Icon": "icons/radio_light",
+      "DisableAutomaticStates": false,
+      "VisibleInActionsList": true,
+      "SupportedInMultiActions": true,
+      "PropertyInspectorPath": "pi/xit.html",
+      "Controllers": ["Encoder", "Keypad"],
+      "States": [{ "Title": "XIT" }]
     }
   ],
   "OS": [{ "Platform": "linux" }],

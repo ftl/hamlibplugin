@@ -43,6 +43,10 @@ type RigClient interface {
 	GetParm(hl.Parameter) (string, error)
 	SetParm(hl.Parameter, string) error
 	VFOOp(hl.VFO, hl.VFOOp) error
+	GetRIT(hl.VFO) (hl.Frequency, error)
+	SetRIT(hl.VFO, hl.Frequency) error
+	GetXIT(hl.VFO) (hl.Frequency, error)
+	SetXIT(hl.VFO, hl.Frequency) error
 }
 
 type Deck interface {

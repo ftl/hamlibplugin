@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <script>
+            let update = () => {};
+            let vfoSetting = "";
+            let stepSetting = "";
+
+            function connectOpenActionSocket(
+                inPort,
+                inPropertyInspectorUUID,
+                inRegisterEvent,
+                inInfo,
+                inActionInfo,
+            ) {
+                const websocket = new WebSocket("ws://localhost:" + inPort);
+                inActionInfo = JSON.parse(inActionInfo);
+                websocket.onopen = () => {
+                    websocket.send(
+                        JSON.stringify({
+                            event: inRegisterEvent,
+                            uuid: inPropertyInspectorUUID,
+                        }),
+                    );
+                };
+
+                vfoSetting = inActionInfo.payload.settings.vfo ?? "";
+                stepSetting = inActionInfo.payload.settings.step ?? "";
+
+                websocket.onmessage = (event) => {
+                    const data = JSON.parse(event.data);
+                    if (data.event == "didReceiveSettings") {
+                        vfoSetting = data.payload.settings.vfo ?? "";
+                        stepSetting = data.payload.settings.step ?? "";
+                    }
+                    if (data.event == "sendToPropertyInspector") {
+                        // TODO: receive available vfos from the plugin
+                    }
+                };
+
+                const vfoElement = document.getElementById("vfo");
+                vfoElement.value = inActionInfo.payload.settings.vfo ?? "";
+
+                const stepElement = document.getElementById("step");
+                stepElement.value = inActionInfo.payload.settings.step ?? "";
+
+                update = () => {
+                    websocket.send(
+                        JSON.stringify({
+                            event: "setSettings",
+                            context: inActionInfo.context,
+                            payload: {
+                                vfo: vfoElement.value || "",
+                                step: stepElement.value || "",
+                            },
+                        }),
+                    );
+                };
+            }
+
+            const connectElgatoStreamDeckSocket = connectOpenActionSocket;
+        </script>
+
+        <style>
+            * {
+                font-family: system-ui, sans-serif;
+                font-size: 16px;
+                color: oklch(92.2% 0 0);
+            }
+            body {
+                margin: 16px;
+                background-color: oklch(26.9% 0 0);
+            }
+            label {
+                margin-right: 4px;
+            }
+            input {
+                margin: 4px;
+                padding: 4px;
+                background-color: oklch(37.1% 0 0);
+                border: 1px solid oklch(43.9% 0 0);
+                border-radius: 8px;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div>
+            <label for="vfo">VFO:</label>
+            <!-- should be a combo box with all VFOs -->
+            <input id="vfo" oninput="update()" type="text" />
+            <br />
+            <label for="step">Step (Hz):</label>
+            <input id="step" oninput="update()" type="text" />
+        </div>
+    </body>
+</html>
