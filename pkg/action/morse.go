@@ -38,16 +38,6 @@ func (a *SendMorse) parseSettings(settings map[string]any) string {
 	return text
 }
 
-func (a *SendMorse) DidReceiveSettings(payload *sdk.ReceivedEventPayload) error {
-	a.UpdateVisual(payload)
-	return nil
-}
-
-func (a *SendMorse) UpdateVisual(payload *sdk.ReceivedEventPayload) error {
-	a.deck.SetTitle(a.context, "CW", sdk.HardwareAndSoftware)
-	return nil
-}
-
 func (a *SendMorse) KeyDown(payload *sdk.ReceivedEventPayload) error {
 	text := a.parseSettings(payload.Settings)
 	if text == "" {
@@ -73,16 +63,6 @@ func NewStopMorse(context string, client RigClient, deck Deck) Action {
 			deck:    deck,
 		},
 	}
-}
-
-func (a *StopMorse) DidReceiveSettings(payload *sdk.ReceivedEventPayload) error {
-	a.UpdateVisual(payload)
-	return nil
-}
-
-func (a *StopMorse) UpdateVisual(payload *sdk.ReceivedEventPayload) error {
-	a.deck.SetTitle(a.context, "Stop CW", sdk.HardwareAndSoftware)
-	return nil
 }
 
 func (a *StopMorse) KeyDown(payload *sdk.ReceivedEventPayload) error {

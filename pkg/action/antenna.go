@@ -54,21 +54,6 @@ func (a *SetAntenna) parseSettings(settings map[string]any) (hl.VFO, int, int) {
 	return hl.VFO(vfo), antenna, option
 }
 
-func (a *SetAntenna) DidReceiveSettings(payload *sdk.ReceivedEventPayload) error {
-	a.UpdateVisual(payload)
-	return nil
-}
-
-func (a *SetAntenna) UpdateVisual(payload *sdk.ReceivedEventPayload) error {
-	_, antenna, _ := a.parseSettings(payload.Settings)
-	title := "Ant"
-	if antenna > 0 {
-		title = "Ant " + strconv.Itoa(antenna)
-	}
-	a.deck.SetTitle(a.context, title, sdk.HardwareAndSoftware)
-	return nil
-}
-
 func (a *SetAntenna) KeyDown(payload *sdk.ReceivedEventPayload) error {
 	vfo, antenna, option := a.parseSettings(payload.Settings)
 	if vfo == "" || antenna == 0 {

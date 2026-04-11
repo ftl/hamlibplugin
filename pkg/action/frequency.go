@@ -12,9 +12,9 @@ import (
 )
 
 const (
-	FrequencyDialUUID         = "com.thecodingflow.hamlibplugin.frequencydial"
-	SetFrequencyUUID          = "com.thecodingflow.hamlibplugin.setfrequency"
-	SetFrequencyRelativeUUID  = "com.thecodingflow.hamlibplugin.setfrequencyrelative"
+	FrequencyDialUUID        = "com.thecodingflow.hamlibplugin.frequencydial"
+	SetFrequencyUUID         = "com.thecodingflow.hamlibplugin.setfrequency"
+	SetFrequencyRelativeUUID = "com.thecodingflow.hamlibplugin.setfrequencyrelative"
 )
 
 func init() {
@@ -55,20 +55,6 @@ func (a *FrequencyDial) parseSettings(settings map[string]any) (hl.VFO, hl.Frequ
 		tuningStep = 0
 	}
 	return hl.VFO(vfo), hl.Frequency(tuningStep)
-}
-
-func (a *FrequencyDial) DidReceiveSettings(payload *sdk.ReceivedEventPayload) error {
-	a.UpdateVisual(payload)
-	return nil
-}
-
-func (a *FrequencyDial) UpdateVisual(payload *sdk.ReceivedEventPayload) error {
-	vfo, _ := a.parseSettings(payload.Settings)
-	if vfo == "" {
-		vfo = "VFO"
-	}
-	a.deck.SetTitle(a.context, string(vfo), sdk.HardwareAndSoftware)
-	return nil
 }
 
 func (a *FrequencyDial) DialRotate(payload *sdk.ReceivedEventPayload) error {
@@ -165,17 +151,6 @@ func (a *SetFrequency) parseSettings(settings map[string]any) (hl.VFO, hl.Freque
 	return hl.VFO(vfo), hl.Frequency(frequency)
 }
 
-func (a *SetFrequency) DidReceiveSettings(payload *sdk.ReceivedEventPayload) error {
-	a.UpdateVisual(payload)
-	return nil
-}
-
-func (a *SetFrequency) UpdateVisual(payload *sdk.ReceivedEventPayload) error {
-	title := "Freq"
-	a.deck.SetTitle(a.context, title, sdk.HardwareAndSoftware)
-	return nil
-}
-
 func (a *SetFrequency) KeyDown(payload *sdk.ReceivedEventPayload) error {
 	vfo, frequency := a.parseSettings(payload.Settings)
 	if vfo == "" || frequency == 0 {
@@ -221,16 +196,6 @@ func (a *SetFrequencyRelative) parseSettings(settings map[string]any) (hl.VFO, h
 		refVFO = ""
 	}
 	return hl.VFO(vfo), hl.Frequency(offset), hl.VFO(refVFO)
-}
-
-func (a *SetFrequencyRelative) DidReceiveSettings(payload *sdk.ReceivedEventPayload) error {
-	a.UpdateVisual(payload)
-	return nil
-}
-
-func (a *SetFrequencyRelative) UpdateVisual(payload *sdk.ReceivedEventPayload) error {
-	a.deck.SetTitle(a.context, "Freq Rel", sdk.HardwareAndSoftware)
-	return nil
 }
 
 func (a *SetFrequencyRelative) KeyDown(payload *sdk.ReceivedEventPayload) error {

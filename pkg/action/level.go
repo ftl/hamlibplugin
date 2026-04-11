@@ -55,20 +55,6 @@ func (a *SetLevel) parseSettings(settings map[string]any) (hl.VFO, hl.Level, flo
 	return hl.VFO(vfo), hl.Level(level), value
 }
 
-func (a *SetLevel) DidReceiveSettings(payload *sdk.ReceivedEventPayload) error {
-	a.UpdateVisual(payload)
-	return nil
-}
-
-func (a *SetLevel) UpdateVisual(payload *sdk.ReceivedEventPayload) error {
-	_, level, _ := a.parseSettings(payload.Settings)
-	if level == "" {
-		level = "Level"
-	}
-	a.deck.SetTitle(a.context, string(level), sdk.HardwareAndSoftware)
-	return nil
-}
-
 func (a *SetLevel) KeyDown(payload *sdk.ReceivedEventPayload) error {
 	vfo, level, value := a.parseSettings(payload.Settings)
 	if vfo == "" || level == "" {
@@ -118,20 +104,6 @@ func (a *LevelEncoder) parseSettings(settings map[string]any) (hl.VFO, hl.Level,
 		step = 0
 	}
 	return hl.VFO(vfo), hl.Level(level), step
-}
-
-func (a *LevelEncoder) DidReceiveSettings(payload *sdk.ReceivedEventPayload) error {
-	a.UpdateVisual(payload)
-	return nil
-}
-
-func (a *LevelEncoder) UpdateVisual(payload *sdk.ReceivedEventPayload) error {
-	_, level, _ := a.parseSettings(payload.Settings)
-	if level == "" {
-		level = "Level"
-	}
-	a.deck.SetTitle(a.context, string(level), sdk.HardwareAndSoftware)
-	return nil
 }
 
 func (a *LevelEncoder) DialRotate(payload *sdk.ReceivedEventPayload) error {

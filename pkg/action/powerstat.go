@@ -44,18 +44,6 @@ func (a *PowerStat) parseSettings(settings map[string]any) hl.PowerStatus {
 	return hl.PowerStatus(status)
 }
 
-func (a *PowerStat) DidReceiveSettings(payload *sdk.ReceivedEventPayload) error {
-	a.UpdateVisual(payload)
-	return nil
-}
-
-func (a *PowerStat) UpdateVisual(payload *sdk.ReceivedEventPayload) error {
-	status := a.parseSettings(payload.Settings)
-	title := powerStatusTitle(status)
-	a.deck.SetTitle(a.context, title, sdk.HardwareAndSoftware)
-	return nil
-}
-
 func (a *PowerStat) KeyDown(payload *sdk.ReceivedEventPayload) error {
 	status := a.parseSettings(payload.Settings)
 
@@ -80,16 +68,6 @@ func NewOnOff(context string, client RigClient, deck Deck) Action {
 	}
 }
 
-func (a *OnOff) DidReceiveSettings(payload *sdk.ReceivedEventPayload) error {
-	a.UpdateVisual(payload)
-	return nil
-}
-
-func (a *OnOff) UpdateVisual(payload *sdk.ReceivedEventPayload) error {
-	a.deck.SetTitle(a.context, "On/Off", sdk.HardwareAndSoftware)
-	return nil
-}
-
 func (a *OnOff) KeyDown(payload *sdk.ReceivedEventPayload) error {
 	current, err := a.client.GetPowerStatus()
 	if err != nil {
@@ -109,19 +87,4 @@ func (a *OnOff) KeyDown(payload *sdk.ReceivedEventPayload) error {
 		log.Printf("[ERROR] set power status %d: %v", newStatus, err)
 	}
 	return nil
-}
-
-func powerStatusTitle(status hl.PowerStatus) string {
-	switch status {
-	case hl.PowerOff:
-		return "Off"
-	case hl.PowerOn:
-		return "On"
-	case hl.PowerStandby:
-		return "Standby"
-	case hl.PowerOperate:
-		return "Operate"
-	default:
-		return "Power"
-	}
 }

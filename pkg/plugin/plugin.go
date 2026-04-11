@@ -3,7 +3,6 @@ package plugin
 import (
 	"log"
 	"sync"
-	"time"
 
 	sdk "github.com/SkYNewZ/streamdeck-sdk"
 	"github.com/ftl/hl-go"
@@ -74,18 +73,6 @@ func (p *Plugin) Handle(event *sdk.ReceivedEvent) error {
 	p.instancesLock.Unlock()
 
 	switch event.Event {
-	case sdk.WillAppear:
-		time.Sleep(10 * time.Millisecond)
-		return handle(inst, func(handler VisualAppearalHandler) error {
-			return handler.UpdateVisual(event.Payload)
-		})
-	case sdk.WillDisappear:
-		delete(p.instances, event.Context)
-		return nil
-	case sdk.DidReceiveSettings:
-		return handle(inst, func(handler SettingsHandler) error {
-			return handler.DidReceiveSettings(event.Payload)
-		})
 	case sdk.KeyDown:
 		return handle(inst, func(handler KeyDownHandler) error {
 			return handler.KeyDown(event.Payload)

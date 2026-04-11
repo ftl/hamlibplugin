@@ -92,16 +92,6 @@ func (a *OffsetEncoder) parseSettings(settings map[string]any) (hl.VFO, hl.Frequ
 	return hl.VFO(vfo), hl.Frequency(step)
 }
 
-func (a *OffsetEncoder) DidReceiveSettings(payload *sdk.ReceivedEventPayload) error {
-	a.UpdateVisual(payload)
-	return nil
-}
-
-func (a *OffsetEncoder) UpdateVisual(payload *sdk.ReceivedEventPayload) error {
-	a.deck.SetTitle(a.context, a.accessor.name, sdk.HardwareAndSoftware)
-	return nil
-}
-
 func (a *OffsetEncoder) DialRotate(payload *sdk.ReceivedEventPayload) error {
 	if !a.clientLock.TryLock() {
 		atomic.AddInt32(&a.queuedTicks, int32(payload.Ticks))

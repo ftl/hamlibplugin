@@ -102,7 +102,7 @@
       "SupportedInMultiActions": true,
       "PropertyInspectorPath": "pi/sendmorse.html",
       "Controllers": ["Keypad"],
-      "States": [{ "Title": "CW" }]
+      "States": [{ "Title": "Send CW" }]
     },
     {
       "Name": "Set Antenna",
@@ -126,7 +126,7 @@
       "SupportedInMultiActions": true,
       "PropertyInspectorPath": "pi/setfrequency.html",
       "Controllers": ["Keypad"],
-      "States": [{ "Title": "Freq" }]
+      "States": [{ "Title": "f" }]
     },
     {
       "Name": "Set Frequency (rel)",
@@ -138,7 +138,7 @@
       "SupportedInMultiActions": true,
       "PropertyInspectorPath": "pi/setfrequencyrelative.html",
       "Controllers": ["Keypad"],
-      "States": [{ "Title": "Freq Rel" }]
+      "States": [{ "Title": "f rel" }]
     },
     {
       "Name": "Set Function",

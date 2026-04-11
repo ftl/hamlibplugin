@@ -53,20 +53,6 @@ func (a *SetFunc) parseSettings(settings map[string]any) (hl.VFO, hl.Function, b
 	return hl.VFO(vfo), hl.Function(function), status
 }
 
-func (a *SetFunc) DidReceiveSettings(payload *sdk.ReceivedEventPayload) error {
-	a.UpdateVisual(payload)
-	return nil
-}
-
-func (a *SetFunc) UpdateVisual(payload *sdk.ReceivedEventPayload) error {
-	_, function, _ := a.parseSettings(payload.Settings)
-	if function == "" {
-		function = "Func"
-	}
-	a.deck.SetTitle(a.context, string(function), sdk.HardwareAndSoftware)
-	return nil
-}
-
 func (a *SetFunc) KeyDown(payload *sdk.ReceivedEventPayload) error {
 	vfo, function, status := a.parseSettings(payload.Settings)
 	if vfo == "" || function == "" {
@@ -104,20 +90,6 @@ func (a *ToggleFunc) parseSettings(settings map[string]any) (hl.VFO, hl.Function
 		function = ""
 	}
 	return hl.VFO(vfo), hl.Function(function)
-}
-
-func (a *ToggleFunc) DidReceiveSettings(payload *sdk.ReceivedEventPayload) error {
-	a.UpdateVisual(payload)
-	return nil
-}
-
-func (a *ToggleFunc) UpdateVisual(payload *sdk.ReceivedEventPayload) error {
-	_, function := a.parseSettings(payload.Settings)
-	if function == "" {
-		function = "Func"
-	}
-	a.deck.SetTitle(a.context, string(function), sdk.HardwareAndSoftware)
-	return nil
 }
 
 func (a *ToggleFunc) KeyDown(payload *sdk.ReceivedEventPayload) error {

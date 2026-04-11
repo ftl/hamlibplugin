@@ -41,20 +41,6 @@ func (a *SetParm) parseSettings(settings map[string]any) (hl.Parameter, string) 
 	return hl.Parameter(parameter), value
 }
 
-func (a *SetParm) DidReceiveSettings(payload *sdk.ReceivedEventPayload) error {
-	a.UpdateVisual(payload)
-	return nil
-}
-
-func (a *SetParm) UpdateVisual(payload *sdk.ReceivedEventPayload) error {
-	parameter, _ := a.parseSettings(payload.Settings)
-	if parameter == "" {
-		parameter = "Parm"
-	}
-	a.deck.SetTitle(a.context, string(parameter), sdk.HardwareAndSoftware)
-	return nil
-}
-
 func (a *SetParm) KeyDown(payload *sdk.ReceivedEventPayload) error {
 	parameter, value := a.parseSettings(payload.Settings)
 	if parameter == "" {

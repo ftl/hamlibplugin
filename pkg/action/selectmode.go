@@ -39,20 +39,6 @@ func (a *SelectMode) parseSettings(settings map[string]any) (hl.VFO, hl.Mode) {
 	return hl.VFO(vfo), hl.Mode(mode)
 }
 
-func (a *SelectMode) DidReceiveSettings(payload *sdk.ReceivedEventPayload) error {
-	a.UpdateVisual(payload)
-	return nil
-}
-
-func (a *SelectMode) UpdateVisual(payload *sdk.ReceivedEventPayload) error {
-	_, mode := a.parseSettings(payload.Settings)
-	if mode == "" {
-		mode = "Mode"
-	}
-	a.deck.SetTitle(a.context, string(mode), sdk.HardwareAndSoftware)
-	return nil
-}
-
 func (a *SelectMode) KeyDown(payload *sdk.ReceivedEventPayload) error {
 	vfo, mode := a.parseSettings(payload.Settings)
 	if vfo == "" || mode == "" {
