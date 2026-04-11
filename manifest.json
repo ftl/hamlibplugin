@@ -223,6 +223,30 @@
       "PropertyInspectorPath": "pi/setsplitvfo.html",
       "Controllers": ["Keypad"],
       "States": [{ "Title": "Split" }]
+    },
+    {
+      "Name": "Set Frequency",
+      "UUID": "com.thecodingflow.hamlibplugin.setfrequency",
+      "Tooltip": "Set the frequency for a certain VFO",
+      "Icon": "icons/radio_light",
+      "DisableAutomaticStates": false,
+      "VisibleInActionsList": true,
+      "SupportedInMultiActions": true,
+      "PropertyInspectorPath": "pi/setfrequency.html",
+      "Controllers": ["Keypad"],
+      "States": [{ "Title": "Freq" }]
+    },
+    {
+      "Name": "Set Frequency (rel)",
+      "UUID": "com.thecodingflow.hamlibplugin.setfrequencyrelative",
+      "Tooltip": "Set the frequency relative to another VFO",
+      "Icon": "icons/radio_light",
+      "DisableAutomaticStates": false,
+      "VisibleInActionsList": true,
+      "SupportedInMultiActions": true,
+      "PropertyInspectorPath": "pi/setfrequencyrelative.html",
+      "Controllers": ["Keypad"],
+      "States": [{ "Title": "Freq Rel" }]
     }
   ],
   "OS": [{ "Platform": "linux" }],
