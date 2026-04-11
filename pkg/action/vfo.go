@@ -2,6 +2,7 @@ package action
 
 import (
 	"log"
+	"strconv"
 
 	sdk "github.com/SkYNewZ/streamdeck-sdk"
 	"github.com/ftl/hl-go"
@@ -9,12 +10,14 @@ import (
 
 const (
 	SelectVFOUUID    = "com.thecodingflow.hamlibplugin.selectvfo"
+	SetSplitVFOUUID  = "com.thecodingflow.hamlibplugin.setsplitvfo"
 	VFOOpUUID        = "com.thecodingflow.hamlibplugin.vfoop"
 	VFOOpEncoderUUID = "com.thecodingflow.hamlibplugin.vfoopencoder"
 )
 
 func init() {
 	Factories[SelectVFOUUID] = NewSelectVFO
+	Factories[SetSplitVFOUUID] = NewSetSplitVFO
 	Factories[VFOOpUUID] = NewVFOOp
 	Factories[VFOOpEncoderUUID] = NewVFOOpEncoder
 }
@@ -197,6 +200,68 @@ func (a *VFOOpEncoder) DialDown(payload *sdk.ReceivedEventPayload) error {
 	err := a.client.VFOOp(vfo, press)
 	if err != nil {
 		log.Printf("[ERROR] vfo op encoder press %s: %v", press, err)
+	}
+	return nil
+}
+
+type SetSplitVFO struct {
+	basicAction
+}
+
+func NewSetSplitVFO(context string, client RigClient, deck Deck) Action {
+	return &SetSplitVFO{
+		basicAction: basicAction{
+			context: context,
+			client:  client,
+			deck:    deck,
+		},
+	}
+}
+
+func (a *SetSplitVFO) parseSettings(settings map[string]any) (hl.VFO, bool, hl.VFO) {
+	vfo, ok := settings["vfo"].(string)
+	if !ok {
+		vfo = ""
+	}
+	splitString, ok := settings["split"].(string)
+	if !ok {
+		splitString = "false"
+	}
+	split, err := strconv.ParseBool(splitString)
+	if err != nil {
+		split = false
+	}
+	txVFO, ok := settings["txvfo"].(string)
+	if !ok {
+		txVFO = ""
+	}
+	return hl.VFO(vfo), split, hl.VFO(txVFO)
+}
+
+func (a *SetSplitVFO) DidReceiveSettings(payload *sdk.ReceivedEventPayload) error {
+	a.UpdateVisual(payload)
+	return nil
+}
+
+func (a *SetSplitVFO) UpdateVisual(payload *sdk.ReceivedEventPayload) error {
+	_, split, _ := a.parseSettings(payload.Settings)
+	title := "Split Off"
+	if split {
+		title = "Split On"
+	}
+	a.deck.SetTitle(a.context, title, sdk.HardwareAndSoftware)
+	return nil
+}
+
+func (a *SetSplitVFO) KeyDown(payload *sdk.ReceivedEventPayload) error {
+	vfo, split, txVFO := a.parseSettings(payload.Settings)
+	if vfo == "" || txVFO == "" {
+		return nil
+	}
+
+	err := a.client.SetSplitVFO(vfo, split, txVFO)
+	if err != nil {
+		log.Printf("[ERROR] set split vfo: %v", err)
 	}
 	return nil
 }

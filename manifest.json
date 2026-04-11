@@ -211,6 +211,18 @@
       "PropertyInspectorPath": "pi/empty.html",
       "Controllers": ["Keypad"],
       "States": [{ "Title": "Stop CW" }]
+    },
+    {
+      "Name": "Set Split VFO",
+      "UUID": "com.thecodingflow.hamlibplugin.setsplitvfo",
+      "Tooltip": "Enable or disable split operation and set the TX VFO",
+      "Icon": "icons/radio_light",
+      "DisableAutomaticStates": false,
+      "VisibleInActionsList": true,
+      "SupportedInMultiActions": true,
+      "PropertyInspectorPath": "pi/setsplitvfo.html",
+      "Controllers": ["Keypad"],
+      "States": [{ "Title": "Split" }]
     }
   ],
   "OS": [{ "Platform": "linux" }],
