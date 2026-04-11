@@ -129,6 +129,30 @@
       "States": [{ "Title": "Parm" }]
     },
     {
+      "Name": "On/Off",
+      "UUID": "com.thecodingflow.hamlibplugin.onoff",
+      "Tooltip": "Toggle the rig power on/off",
+      "Icon": "icons/radio_light",
+      "DisableAutomaticStates": false,
+      "VisibleInActionsList": true,
+      "SupportedInMultiActions": true,
+      "PropertyInspectorPath": "pi/empty.html",
+      "Controllers": ["Keypad"],
+      "States": [{ "Title": "On/Off" }]
+    },
+    {
+      "Name": "Power State",
+      "UUID": "com.thecodingflow.hamlibplugin.powerstat",
+      "Tooltip": "Set the rig power state",
+      "Icon": "icons/radio_light",
+      "DisableAutomaticStates": false,
+      "VisibleInActionsList": true,
+      "SupportedInMultiActions": true,
+      "PropertyInspectorPath": "pi/powerstat.html",
+      "Controllers": ["Keypad"],
+      "States": [{ "Title": "Power" }]
+    },
+    {
       "Name": "RIT",
       "UUID": "com.thecodingflow.hamlibplugin.rit",
       "Tooltip": "Adjust RIT offset and toggle RIT on/off",

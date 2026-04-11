@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <script>
+            let update = () => {};
+            let statusSetting = "";
+
+            function connectOpenActionSocket(
+                inPort,
+                inPropertyInspectorUUID,
+                inRegisterEvent,
+                inInfo,
+                inActionInfo,
+            ) {
+                const websocket = new WebSocket("ws://localhost:" + inPort);
+                inActionInfo = JSON.parse(inActionInfo);
+                websocket.onopen = () => {
+                    websocket.send(
+                        JSON.stringify({
+                            event: inRegisterEvent,
+                            uuid: inPropertyInspectorUUID,
+                        }),
+                    );
+                };
+
+                statusSetting = inActionInfo.payload.settings.status ?? "";
+
+                websocket.onmessage = (event) => {
+                    const data = JSON.parse(event.data);
+                    if (data.event == "didReceiveSettings") {
+                        statusSetting = data.payload.settings.status ?? "";
+                    }
+                    if (data.event == "sendToPropertyInspector") {
+                        // TODO: receive available options from the plugin
+                    }
+                };
+
+                const statusElement = document.getElementById("status");
+                statusElement.value = inActionInfo.payload.settings.status ?? "";
+
+                update = () => {
+                    websocket.send(
+                        JSON.stringify({
+                            event: "setSettings",
+                            context: inActionInfo.context,
+                            payload: {
+                                status: statusElement.value || "",
+                            },
+                        }),
+                    );
+                };
+            }
+
+            const connectElgatoStreamDeckSocket = connectOpenActionSocket;
+        </script>
+
+        <style>
+            * {
+                font-family: system-ui, sans-serif;
+                font-size: 16px;
+                color: oklch(92.2% 0 0);
+            }
+            body {
+                margin: 16px;
+                background-color: oklch(26.9% 0 0);
+            }
+            label {
+                margin-right: 4px;
+            }
+            select {
+                margin: 4px;
+                padding: 4px;
+                background-color: oklch(37.1% 0 0);
+                color: oklch(92.2% 0 0);
+                border: 1px solid oklch(43.9% 0 0);
+                border-radius: 8px;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div>
+            <label for="status">Power State:</label>
+            <select id="status" onchange="update()">
+                <option value="">-- Select --</option>
+                <option value="0">Off</option>
+                <option value="1">On</option>
+                <option value="2">Standby</option>
+                <option value="4">Operate</option>
+            </select>
+        </div>
+    </body>
+</html>
