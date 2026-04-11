@@ -42,6 +42,7 @@ type RigClient interface {
 	SetFunc(hl.VFO, hl.Function, bool) error
 	GetParm(hl.Parameter) (string, error)
 	SetParm(hl.Parameter, string) error
+	VFOOp(hl.VFO, hl.VFOOp) error
 }
 
 type Deck interface {

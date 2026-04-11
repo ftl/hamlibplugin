@@ -69,6 +69,18 @@
       "States": [{ "Title": "Level" }]
     },
     {
+      "Name": "VFO Operation",
+      "UUID": "com.thecodingflow.hamlibplugin.vfoop",
+      "Tooltip": "Perform a VFO operation",
+      "Icon": "icons/radio_light",
+      "DisableAutomaticStates": false,
+      "VisibleInActionsList": true,
+      "SupportedInMultiActions": true,
+      "PropertyInspectorPath": "pi/vfoop.html",
+      "Controllers": ["Keypad"],
+      "States": [{ "Title": "VFO Op" }]
+    },
+    {
       "Name": "Set Function",
       "UUID": "com.thecodingflow.hamlibplugin.setfunc",
       "Tooltip": "Enable or disable a rig function for a certain VFO",
